@@ -1,0 +1,411 @@
+/*
+ * Report styles — premium consulting report.
+ * Layout only; colors/type from tokens.css and the brand standards.
+ * The report is the heart of the analysis: clear hierarchy, calm whitespace,
+ * elegant cards, easy reading. Print styles for "Als PDF speichern".
+ */
+
+.report {
+  --step-gap: var(--space-10);
+}
+
+/* ---------------- Header ---------------- */
+.report-head {
+  margin-bottom: var(--space-8);
+}
+
+.report-head h1 {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-h2); /* 32px, documented */
+  line-height: var(--line-height-heading);
+}
+
+.report-lead {
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+  max-width: 62ch;
+}
+
+.report-personal {
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+  color: var(--color-text-primary);
+  padding: var(--space-5);
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-surface-primary-tint);
+  border-radius: var(--radius);
+  margin-top: var(--space-5);
+}
+
+.report-disclaimer {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+}
+
+.report-actions {
+  margin-top: var(--space-6);
+}
+
+/* ---------------- Steps (dramaturgy) ---------------- */
+.report-step {
+  padding-top: var(--step-gap);
+  margin-top: var(--step-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.report-step:first-of-type {
+  border-top: 0;
+  margin-top: var(--space-6);
+  padding-top: 0;
+}
+
+.report-step__title {
+  font-size: 27px; /* documented: H2 auf dunkel/Banner (typografie.md) */
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0 0 var(--space-3);
+}
+
+.report-step__intro {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  max-width: 62ch;
+}
+
+/* ---------------- Insight cards (four blocks) ---------------- */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.insight {
+  padding: var(--space-6);
+}
+
+.insight p {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+}
+
+.insight p:last-child {
+  margin-bottom: 0;
+}
+
+.insight__lead {
+  font-size: 19px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary) !important;
+  line-height: 1.4;
+}
+
+.insight__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-2);
+}
+
+.insight__door {
+  margin-top: var(--space-4) !important;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary) !important;
+  font-size: var(--font-size-small) !important;
+}
+
+.recommendation {
+  margin: var(--space-2) 0 0;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* ---------------- Chips (recognized / quiet areas) ---------------- */
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(180deg, var(--color-surface-alt), var(--color-surface));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 0 10px rgba(0, 229, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+/* ---------------- Ranked top potentials ---------------- */
+.ranked {
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+  counter-reset: rank;
+}
+
+.ranked li {
+  counter-increment: rank;
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-lead);
+}
+
+.ranked li:last-child {
+  border-bottom: 0;
+}
+
+.ranked li::before {
+  content: counter(rank);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-surface-badge);
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-extrabold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------- Potenzial-Kompass ---------------- */
+.compass {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+}
+
+.compass__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.compass__label {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.compass__bar {
+  height: 12px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+/* Alle Zeilen starten dezent (zurückhaltendes Cyan) — nur der stärkste Hebel
+   (oberste Zeile) wird unten auf Orange angehoben. So ist auf den ersten
+   Blick klar, wo der grösste Hebel liegt, statt jede Zeile gleich zu betonen. */
+.compass__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 229, 255, 0.35);
+}
+
+.compass__head .badge {
+  background: var(--color-surface-alt);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* Der stärkste Hebel (oberste Zeile) wird in Orange hervorgehoben —
+   der eine Bereich, auf den zuerst zu schauen ist. */
+.compass__row:first-child .compass__bar > span {
+  background: linear-gradient(135deg, var(--orange), var(--orange-strong));
+}
+
+.compass__row:first-child .compass__head .badge {
+  background: var(--orange-tint);
+  color: var(--orange-strong);
+  border-color: transparent;
+}
+
+/* ---------------- Quiet (unremarkable) areas ---------------- */
+.quiet-areas {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.quiet-areas__title {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-3);
+}
+
+/* ---------------- Synthesis ("roter Faden") ---------------- */
+.synthesis {
+  font-size: 19px;
+  line-height: 1.55;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* ---------------- Nächster Schritt (neutral, RC1: keine Verlinkung) ---------------- */
+.next-step-questions {
+  margin: var(--space-5) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.next-step-questions li {
+  position: relative;
+  padding: 0 0 var(--space-3) var(--space-6);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.next-step-questions li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+/* ---------------- Druck-Kopfzeile (nur PDF/Print) ---------------- */
+.report-print-head {
+  display: none;
+}
+
+/* ---------------- Footer ---------------- */
+.report-foot {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-small);
+  text-align: center;
+}
+
+.report-foot__meta {
+  margin-top: var(--space-2);
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .report-head h1 {
+    font-size: 26px; /* documented mobile H1 */
+  }
+  .report {
+    --step-gap: var(--space-8);
+  }
+}
+
+/* Sehr schmale Displays (~320-360px): Bereichsname und Potenzial-Badge
+   nebeneinander wird eng — untereinander statt gequetscht (Mobile-Review). */
+@media (max-width: 380px) {
+  .compass__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}
+
+/* ---------------- Print / PDF ---------------- */
+@media print {
+  /* Für den Druck ein helles, tintensparendes und gut lesbares Theme —
+     alle Elemente nutzen Tokens, daher genügt ein Re-Theme an :root. */
+  :root {
+    --color-background: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-alt: #ffffff;
+    --color-surface-dark: #ffffff;
+    --color-surface-badge: #eef2f8;
+    --color-surface-primary-tint: #f4f7fb;
+    --color-surface-accent-tint: #fdeedd;
+    --color-text-primary: #14243d;
+    --color-text-secondary: #4a5a72;
+    --color-text-inverse: #14243d;
+    --color-text-inverse-muted: #4a5a72;
+    --color-on-primary: #ffffff;
+    --color-border: #d7deea;
+    --color-accent: #0a6c86;   /* dunkleres Cyan für Druckkontrast */
+    /* --color-primary (Orange) bleibt für den Druck erhalten */
+  }
+
+  .app-header,
+  .app-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .app-main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .app-main > * {
+    animation: none !important;
+  }
+
+  .report-step {
+    break-inside: avoid;
+    border-color: #e5e5e5;
+  }
+
+  .card,
+  .compass {
+    box-shadow: none;
+    border: 1px solid #e5e5e5;
+  }
+
+  .report-print-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .report-print-head__logo {
+    width: 160px; /* Mindestbreite 150px lt. Brand/logos.md */
+    height: auto;
+  }
+
+  .report-print-head__meta {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}

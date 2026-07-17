@@ -1,0 +1,654 @@
+/*
+ * FokusOne Decision Engine — base layout & premium UI.
+ * Structural/layout styles only. All colors and type come from tokens.css /
+ * the brand standards (farben.md, typografie.md, komponenten.md). No new colors,
+ * fonts or design principles are introduced here.
+ *
+ * Goal: the app must feel like part of the FokusOne website — calm, premium,
+ * trustworthy. Generous whitespace, soft depth, clear hierarchy, mobile-first.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Sicherheitsnetz gegen horizontales Scrollen durch dekorative, absolut
+     positionierte Elemente (z. B. .start::before). "clip" statt "hidden",
+     damit position:sticky (Header) auf keinem Browser deaktiviert wird. */
+  overflow-x: clip;
+}
+
+/* ============================ Layout shell ============================ */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  /* iOS-Notch: Header darf nie unter der Statusleiste/dem Notch verschwinden. */
+  padding-top: max(var(--space-4), env(safe-area-inset-top, 0px));
+  background: rgba(6, 13, 31, 0.82);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-header__logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.app-header__meta {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.app-main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6) var(--space-12);
+}
+
+.app-footer {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-10);
+  /* Home-Indicator (iOS): unterer Abstand darf nie kleiner als die Safe Area sein. */
+  padding-bottom: max(var(--space-10), env(safe-area-inset-bottom, 0px));
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.app-footer__links {
+  margin-top: var(--space-3);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.app-footer__links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.app-footer__links a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+/* Touch-Zielgrösse für schlanke Text-Links (Footer-Navigation, "Zurück"-Links)
+   anheben, ohne die sichtbare Schrift zu vergrössern — reine Tapflächen-
+   Vergrösserung per Padding, ca. 44px Zielhöhe (Punkt 2 Mobile-Review). */
+.app-footer__links a,
+.no-print a,
+.link-nav {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-2);
+  margin: calc(var(--space-3) * -1) calc(var(--space-2) * -1);
+}
+
+/* Dezente Einblendung pro Screen-Wechsel. */
+.app-main > * {
+  animation: fadeInUp var(--transition-slow) both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ============================ Typography ============================ */
+h1 {
+  font-size: var(--font-size-h2); /* 32px — grösste App-Headline, nicht klobig */
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-heading);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-4);
+}
+
+h2 {
+  font-size: 19px;
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.25;
+  margin: 0 0 var(--space-3);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.35;
+  margin: 0 0 var(--space-2);
+}
+
+p {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-body);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Website-hero echo on the start screen: larger headline, one word highlighted
+   in the primary colour (like the site H1 `.highlight`). */
+.start h1 {
+  font-size: 38px; /* documented (typografie.md); step up from 32 for hero presence */
+  line-height: var(--line-height-heading);
+}
+
+.highlight {
+  color: var(--color-accent); /* Orange — wie „ONE" in der Wortmarke */
+}
+
+/* Intro/lead reading copy — larger, calm, easy to read. */
+.app-main > * > p,
+.report-step__intro,
+.chapter-intro,
+.report-lead {
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+}
+
+/* ============================ Badge ============================ */
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-badge);
+  color: var(--color-accent);
+}
+
+/* ==================== Start-Screen: sehr dezenter Navy-Glow ====================
+   Ruhige, hochwertige Andeutung von Tiefe — kein Neon, kein Spielzeug. */
+.start {
+  position: relative;
+}
+
+.start::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -40px;
+  transform: translateX(-50%);
+  width: 560px;
+  max-width: 100%; /* darf .start nie überragen (war 130% -> horizontaler Overflow auf Mobile) */
+  height: 300px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.06), transparent 70%);
+  filter: blur(2px);
+}
+
+/* ==================== Analyse-Sequenz ==================== */
+.analyze-subline {
+  color: var(--color-text-secondary);
+}
+
+.analyze-card {
+  padding: var(--space-6);
+}
+
+.analyze-bar {
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 229, 255, 0.15);
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.analyze-bar > span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  animation: analyzeSlide 1.1s ease-in-out infinite;
+}
+
+@keyframes analyzeSlide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+
+.analyze-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.analyze-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-lead);
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+  transform: translateY(4px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow), color var(--transition-slow);
+}
+
+.analyze-step.is-done {
+  opacity: 1;
+  transform: none;
+  color: var(--color-text-primary);
+}
+
+.analyze-check {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--cyan-tint);
+  border: 1px solid var(--color-border);
+}
+
+.analyze-step.is-done .analyze-check {
+  border-color: var(--color-accent);
+}
+
+.analyze-step.is-done .analyze-check::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: center / 12px no-repeat
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2300e5ff'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20%206L9%2017l-5-5'/%3E%3C/svg%3E");
+}
+
+/* ============================ Card ============================ */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+
+.card--tint {
+  background: var(--color-surface-primary-tint);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* ============================ Buttons ============================ */
+/* Pill shape, 14px/600 type, hover via movement + shadow (never color).
+   Primary (filled) carries the brand arrow-in-circle at the end. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 54px;
+  padding: 0 var(--space-6);
+  font-family: inherit;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-button);
+}
+
+.btn-primary::after {
+  content: "";
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  /* Diagonal arrow (↗) — identical glyph to the website button icon. */
+  background: rgba(8, 18, 31, 0.16)
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='14'%20height='14'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2308121f'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cline%20x1='7'%20y1='17'%20x2='17'%20y2='7'/%3E%3Cpolyline%20points='7%207%2017%207%2017%2017'/%3E%3C/svg%3E")
+    center / 13px 13px no-repeat;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.btn-light {
+  background: var(--color-surface-alt);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+.btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.btn:focus-visible,
+a:focus-visible,
+.option:focus-within {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Der Router setzt nach jedem Screen-Wechsel programmatisch den Fokus auf
+   #app-root (Barrierefreiheit). Das darf keinen sichtbaren Ring erzeugen,
+   wenn der Fokus nicht per Tastatur gesetzt wurde. */
+#app-root:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================ Start-page hints ============================ */
+.hints {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hints li {
+  position: relative;
+  padding-left: var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lead);
+}
+
+.hints li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-surface-badge)
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2300e5ff'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20%206L9%2017l-5-5'/%3E%3C/svg%3E")
+    center / 12px no-repeat;
+}
+
+/* Vertrauenshinweis (Datenverarbeitung) — auf dem Startbildschirm sichtbar,
+   nicht erst im Footer. Gleiche Betonung wie .report-personal (linker Rand). */
+.privacy-note {
+  margin: 0 0 var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-surface-primary-tint);
+  border-radius: var(--radius);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+/* ============================ Questionnaire wizard ============================ */
+.chapter-head {
+  margin-bottom: var(--space-6);
+}
+
+.chapter-subline {
+  font-size: 27px; /* documented: H2 auf dunkel/Banner (typografie.md) */
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.chapter-intro {
+  margin: 0;
+  color: var(--color-text-secondary);
+  max-width: 60ch;
+}
+
+.progress {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.progress__chapter {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.progress__hint {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.progress-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  transition: width var(--transition-slow);
+}
+
+.question {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.question__label {
+  padding: 0;
+  font-size: 19px; /* documented: H3 gross (typografie.md) */
+  font-weight: var(--font-weight-bold);
+  line-height: 1.35;
+  margin-bottom: var(--space-2);
+}
+
+.question__help {
+  margin: 0;
+  font-size: var(--font-size-small);
+}
+
+.multi-hint {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 60px;
+  padding: var(--space-4) var(--space-5);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+  cursor: pointer;
+  font-size: var(--font-size-lead);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.option:hover {
+  border-color: var(--color-accent);
+}
+
+.option--selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint);
+}
+
+.option input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--color-accent);
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.wizard-actions .btn {
+  flex: 1;
+}
+
+.interstitial {
+  padding: var(--space-6);
+}
+
+.interstitial p {
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* ============================ Diagnostics (system self-test) ============================ */
+.kv {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+}
+
+.kv th,
+.kv td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.kv th {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  width: 40%;
+}
+
+/* "muted" text is still read (hints, disclaimers, captions) — use the
+   AA-compliant secondary grey, not the light grey that fails on white. */
+.muted {
+  color: var(--color-text-secondary);
+}
+
+pre.debug {
+  background: var(--color-surface-dark);
+  color: var(--color-text-inverse);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+}
+
+details.card summary {
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================ Responsive (mobile-first refinements) ============================ */
+@media (max-width: 760px) {
+  .app-header {
+    padding: var(--space-3) var(--space-5);
+    padding-top: max(var(--space-3), env(safe-area-inset-top, 0px));
+  }
+  .app-main {
+    padding: var(--space-7) var(--space-5) var(--space-10);
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header__meta {
+    display: none;
+  }
+  .app-main {
+    padding: var(--space-6) var(--space-4) var(--space-8);
+  }
+  .card {
+    padding: var(--space-5);
+  }
+  h1 {
+    font-size: 26px; /* documented mobile H1 (typografie.md) */
+  }
+  .question__label {
+    font-size: 18px; /* documented Tools-Label size, min readable label */
+  }
+  .wizard-actions {
+    flex-direction: column-reverse;
+  }
+}
+
+/* ============================ Reduced motion ============================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

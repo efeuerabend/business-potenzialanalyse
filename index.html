@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="FokusOne Business-Potenzialanalyse — kostenlose Erstorientierung zu wirtschaftlichen Potenzialen.">
+  <title>FokusOne Business-Potenzialanalyse</title>
+  <!-- All processing is client-side. No external requests, no trackers, no fonts from third parties. -->
+  <link rel="stylesheet" href="./styles/tokens.css">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/report.css">
+</head>
+<body>
+  <header class="app-header">
+    <!-- Dark-Mode-Hintergrund → helle/kontrastreiche Logo-Variante (siehe Brand/logos.md). -->
+    <img class="app-header__logo"
+         src="./assets/logos/fokusone-logo-dark-transparent.png"
+         alt="FokusOne">
+    <span class="app-header__meta" id="engine-meta">Decision Engine</span>
+  </header>
+
+  <main class="app-main" id="app-root" aria-live="polite">
+    <!-- Screens are rendered here by the router. -->
+  </main>
+
+  <footer class="app-footer">
+    <p class="muted" id="app-footer-note"></p>
+    <nav class="app-footer__links">
+      <a href="#/datenschutz">Datenschutz</a>
+      <span aria-hidden="true">·</span>
+      <a href="#/impressum">Impressum</a>
+    </nav>
+  </footer>
+
+  <!-- ES modules. Served over HTTP (e.g. Cloudflare Pages) or a local dev server. -->
+  <script type="module" src="./scripts/app.js"></script>
+</body>
+</html>
