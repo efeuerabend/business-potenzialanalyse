@@ -16,8 +16,6 @@ import { systemScreen } from './screens/system.js';
 import { analyseScreen } from './screens/analyse.js';
 import { analyzingScreen } from './screens/analyzing.js';
 import { reportScreen } from './screens/report.js';
-import { privacyScreen } from './screens/privacy.js';
-import { imprintScreen } from './screens/imprint.js';
 import { leadCaptureScreen } from './screens/lead-capture.js';
 
 // Central state — provided now so Sprint 2 screens can subscribe to it.
@@ -31,8 +29,8 @@ const routes = {
   '/analyse': () => analyseScreen({ store, config, runAnalysis }),
   '/analyzing': () => analyzingScreen({ store, config }),
   '/report': () => reportScreen({ store, config }),
-  '/datenschutz': () => privacyScreen(),
-  '/impressum': () => imprintScreen(),
+  // Datenschutz/Impressum sind eigenständige statische Seiten (datenschutz.html,
+  // impressum.html), kein SPA-Screen — siehe app-footer Links in index.html.
   // Prepared, deactivated extension point for the future funnel step — see
   // config/app-config.js featureFlags.leadCapture.
   '/lead-capture': () => leadCaptureScreen({ config }),

@@ -641,6 +641,31 @@ details.card summary {
   }
 }
 
+/* ============================ Rechtliche Seiten (Impressum/Datenschutz) ============================
+   Eigenständige statische Seiten (datenschutz.html, impressum.html), kein SPA-Routing.
+   Nutzen dieselben Tokens/Komponenten (.card, .btn, .badge, Header/Footer) — hier nur die
+   breitere Inhaltsspalte und der Abstand zwischen den Rechtsabschnitten. */
+.legal-main {
+  max-width: 960px;
+}
+
+.legal-card h2 {
+  margin-top: var(--space-7);
+}
+
+.legal-card h2:first-child {
+  margin-top: 0;
+}
+
+.legal-back {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+.legal-copyright {
+  margin-top: var(--space-3);
+}
+
 /* ============================ Reduced motion ============================ */
 @media (prefers-reduced-motion: reduce) {
   *,
